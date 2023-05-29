@@ -1,6 +1,7 @@
 package com.fazaltuts4u.OrderService.service.impl;
 
 import com.fazaltuts4u.OrderService.entity.Order;
+import com.fazaltuts4u.OrderService.external.client.ProductService;
 import com.fazaltuts4u.OrderService.model.OrderRequest;
 import com.fazaltuts4u.OrderService.repository.OrderRepository;
 import com.fazaltuts4u.OrderService.service.OrderService;
@@ -17,12 +18,20 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private ProductService productService;
+
     @Override
     public long placeOrder(OrderRequest orderRequest) {
     //Order Entity -> save the data with status Order Created
         //Prodcut Service - block products (reduce the quantity)
         //Payment Service - Payments -> Success -> Complete else Cancelled
         log.info("Placing Order Request: {}", orderRequest);
+
+        productService.reduceQuantity(orderRequest.getProductId(), orderRequest.getQuantity());
+
+        log.info("Creating Order with Status CREATED");
+
         Order order = Order.builder()
                 .amount(orderRequest.getTotalAmount())
                 .orderStatus("CREATED")
