@@ -1,6 +1,7 @@
 package com.fazaltuts4u.OrderService.external.decoder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fazaltuts4u.OrderService.exception.CustomException;
 import com.fazaltuts4u.OrderService.external.response.ErrorResponse;
 import feign.Response;
 import feign.codec.ErrorDecoder;
@@ -19,9 +20,10 @@ public class CustomErrorDecoder implements ErrorDecoder {
 
         try {
             ErrorResponse errorResponse = objectMapper.readValue(response.body().asInputStream(), ErrorResponse.class);
+            return new CustomException(errorResponse.getErrorMessage(), errorResponse.getErrorCode(), response.status());
+
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new CustomException("Internal Server Error", "INTERNAL_SERVER_ERROR", 500);
         }
-        return null;
     }
 }
