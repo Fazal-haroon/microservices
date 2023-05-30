@@ -10,3 +10,5 @@ spring:
           uri: https://github.com/Fazal-haroon/microservices
           clone-on-start: true
 
+#          Installing Zipkin via Docker -> docker run -d -p 9411:9411 openzipkin/zipkin
+
