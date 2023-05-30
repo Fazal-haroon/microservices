@@ -1,5 +1,8 @@
 package com.fazaltuts4u.OrderService.exception;
 
+import lombok.Data;
+
+@Data
 public class CustomException extends RuntimeException{
     private String errorCode;
     private int status;
