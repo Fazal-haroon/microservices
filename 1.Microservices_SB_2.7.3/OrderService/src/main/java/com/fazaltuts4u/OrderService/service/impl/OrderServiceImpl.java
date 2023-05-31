@@ -1,7 +1,9 @@
 package com.fazaltuts4u.OrderService.service.impl;
 
 import com.fazaltuts4u.OrderService.entity.Order;
+import com.fazaltuts4u.OrderService.external.client.PaymentService;
 import com.fazaltuts4u.OrderService.external.client.ProductService;
+import com.fazaltuts4u.OrderService.external.request.PaymentRequest;
 import com.fazaltuts4u.OrderService.model.OrderRequest;
 import com.fazaltuts4u.OrderService.repository.OrderRepository;
 import com.fazaltuts4u.OrderService.service.OrderService;
@@ -20,6 +22,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private PaymentService paymentService;
 
     @Override
     public long placeOrder(OrderRequest orderRequest) {
@@ -40,6 +45,23 @@ public class OrderServiceImpl implements OrderService {
                 .quantity(orderRequest.getQuantity())
                 .build();
         order = orderRepository.save(order);
+        log.info("Calling Payment Service to complete the payment");
+        PaymentRequest paymentRequest = PaymentRequest.builder()
+                .orderId(order.getId())
+                .paymentMode(orderRequest.getPaymentMode())
+                .amount(orderRequest.getTotalAmount())
+                .build();
+        String orderStatus = null;
+        try {
+            paymentService.doPayment(paymentRequest);
+            log.info("Payment done Successfully. Changing the order status to PLACED");
+            orderStatus = "PLACED";
+        } catch (Exception e) {
+            log.info("Error occurred in payment. Changing order status to PAYMENT_FAILED");
+            orderStatus = "PAYMENT_FAILED";
+        }
+        order.setOrderStatus(orderStatus);
+        orderRepository.save(order);
         log.info("Order places successfully with Order Id: {}", order.getId());
         return order.getId();
     }
