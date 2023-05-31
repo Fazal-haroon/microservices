@@ -1,10 +1,12 @@
 package com.fazaltuts4u.OrderService.service.impl;
 
 import com.fazaltuts4u.OrderService.entity.Order;
+import com.fazaltuts4u.OrderService.exception.CustomException;
 import com.fazaltuts4u.OrderService.external.client.PaymentService;
 import com.fazaltuts4u.OrderService.external.client.ProductService;
 import com.fazaltuts4u.OrderService.external.request.PaymentRequest;
 import com.fazaltuts4u.OrderService.model.OrderRequest;
+import com.fazaltuts4u.OrderService.model.OrderResponse;
 import com.fazaltuts4u.OrderService.repository.OrderRepository;
 import com.fazaltuts4u.OrderService.service.OrderService;
 import lombok.extern.log4j.Log4j2;
@@ -64,5 +66,18 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(order);
         log.info("Order places successfully with Order Id: {}", order.getId());
         return order.getId();
+    }
+
+    @Override
+    public OrderResponse getOrderDetails(long orderId) {
+        log.info("Get order details for Order Id: {}",orderId);
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new CustomException("Order not found for the Order Id: " + orderId, "NOT_FOUND", 404));
+        OrderResponse orderResponse = OrderResponse.builder()
+                .orderId(order.getId())
+                .orderDate(order.getOrderDate())
+                .amount(order.getAmount())
+                .orderStatus(order.getOrderStatus())
+                .build();
+        return orderResponse;
     }
 }
