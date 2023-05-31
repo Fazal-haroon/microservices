@@ -78,7 +78,11 @@ public class OrderServiceImpl implements OrderService {
         log.info("Get order details for Order Id: {}",orderId);
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new CustomException("Order not found for the Order Id: " + orderId, "NOT_FOUND", 404));
         log.info("Invoking Product Service to fetch the product for id: {}", order.getProductId());
-        ProductResponse productResponse = restTemplate.getForObject("http://PRODUCT_SERVICE/product/" + order.getProductId(), ProductResponse.class);
+        ProductResponse productResponse
+                = restTemplate.getForObject(
+                "http://PRODUCT-SERVICE/product/" + order.getProductId(),
+                ProductResponse.class
+        );
         OrderResponse.ProductDetails productDetails = OrderResponse.ProductDetails.builder()
                 .productId(productResponse.getProductId())
                 .productName(productResponse.getProductName())
