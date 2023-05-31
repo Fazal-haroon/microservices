@@ -5,6 +5,7 @@ import com.fazaltuts4u.OrderService.exception.CustomException;
 import com.fazaltuts4u.OrderService.external.client.PaymentService;
 import com.fazaltuts4u.OrderService.external.client.ProductService;
 import com.fazaltuts4u.OrderService.external.request.PaymentRequest;
+import com.fazaltuts4u.OrderService.external.response.PaymentResponse;
 import com.fazaltuts4u.OrderService.external.response.ProductResponse;
 import com.fazaltuts4u.OrderService.model.OrderRequest;
 import com.fazaltuts4u.OrderService.model.OrderResponse;
@@ -86,11 +87,11 @@ public class OrderServiceImpl implements OrderService {
         );
 
         log.info("Getting payment information form the payment Service");
-//        PaymentResponse paymentResponse
-//                = restTemplate.getForObject(
-//                "http://PAYMENT-SERVICE/payment/order/" + order.getId(),
-//                PaymentResponse.class
-//        );
+        PaymentResponse paymentResponse
+                = restTemplate.getForObject(
+                "http://PAYMENT-SERVICE/payment/order/" + order.getId(),
+                PaymentResponse.class
+        );
 
         OrderResponse.ProductDetails productDetails = OrderResponse.ProductDetails.builder()
                 .productId(productResponse.getProductId())
@@ -98,12 +99,23 @@ public class OrderServiceImpl implements OrderService {
                 .price(productResponse.getPrice())
                 .quantity(productResponse.getQuantity())
                 .build();
+
+        OrderResponse.PaymentDetails paymentDetails = OrderResponse.PaymentDetails.builder()
+                .paymentId(paymentResponse.getPaymentId())
+                .paymentDate(paymentResponse.getPaymentDate())
+                .paymentMode(paymentResponse.getPaymentMode())
+                .status(paymentResponse.getStatus())
+                .orderId(paymentResponse.getOrderId())
+                .amount(paymentResponse.getAmount())
+                .build();
+
         OrderResponse orderResponse = OrderResponse.builder()
                 .orderId(order.getId())
                 .orderDate(order.getOrderDate())
                 .amount(order.getAmount())
                 .orderStatus(order.getOrderStatus())
                 .productDetails(productDetails)
+                .paymentDetails(paymentDetails)
                 .build();
         return orderResponse;
     }
