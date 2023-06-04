@@ -28,13 +28,9 @@ public class AuthenticationController {
             @RegisteredOAuth2AuthorizedClient("okta")
             OAuth2AuthorizedClient client
     ) {
-
         log.info("AuthController | login is called");
         log.info("AuthController | login | client : " + client.toString());
-
-        AuthenticationResponse authenticationResponse = null;
-        try{
-            authenticationResponse
+        AuthenticationResponse authenticationResponse
                     = AuthenticationResponse.builder()
                     .userId(oidcUser.getEmail())
                     .accessToken(client.getAccessToken().getTokenValue())
@@ -45,11 +41,6 @@ public class AuthenticationController {
                             .map(GrantedAuthority::getAuthority)
                             .collect(Collectors.toList()))
                     .build();
-        }catch (Exception e){
-            log.info("AuthController | login | error : " + e.getMessage());
-        }
-
-
         return new ResponseEntity<>(authenticationResponse, HttpStatus.OK);
     }
 
