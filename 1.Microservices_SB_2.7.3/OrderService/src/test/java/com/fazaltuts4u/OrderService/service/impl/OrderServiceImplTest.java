@@ -5,9 +5,11 @@ import com.fazaltuts4u.OrderService.external.client.PaymentService;
 import com.fazaltuts4u.OrderService.external.client.ProductService;
 import com.fazaltuts4u.OrderService.external.response.PaymentResponse;
 import com.fazaltuts4u.OrderService.external.response.ProductResponse;
+import com.fazaltuts4u.OrderService.model.OrderResponse;
 import com.fazaltuts4u.OrderService.model.PaymentMode;
 import com.fazaltuts4u.OrderService.repository.OrderRepository;
 import com.fazaltuts4u.OrderService.service.OrderService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -20,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 import java.time.Instant;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -59,7 +62,7 @@ public class OrderServiceImplTest {
                 PaymentResponse.class)
         ).thenReturn(getMockPaymentResponse());
         //Actual
-        orderService.getOrderDetails(9);
+        OrderResponse orderResponse = orderService.getOrderDetails(9);
         //Verification
         verify(orderRepository, times(1)).findById(anyLong());
         verify(restTemplate, times(1)).getForObject(
@@ -71,7 +74,8 @@ public class OrderServiceImplTest {
                 PaymentResponse.class
         );
         //Assert
-
+        assertNotNull(orderResponse);
+        assertEquals(order.getId(), orderResponse.getOrderId());
     }
 
     private PaymentResponse getMockPaymentResponse() {
