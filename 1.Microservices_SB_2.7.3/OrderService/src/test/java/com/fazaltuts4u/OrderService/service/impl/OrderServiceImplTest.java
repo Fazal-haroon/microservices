@@ -61,6 +61,15 @@ public class OrderServiceImplTest {
         //Actual
         orderService.getOrderDetails(9);
         //Verification
+        verify(orderRepository, times(1)).findById(anyLong());
+        verify(restTemplate, times(1)).getForObject(
+                "http://PRODUCT-SERVICE/product/" + order.getProductId(),
+                ProductResponse.class
+        );
+        verify(restTemplate, times(1)).getForObject(
+                "http://PAYMENT-SERVICE/payment/order/" + order.getId(),
+                PaymentResponse.class
+        );
         //Assert
 
     }
