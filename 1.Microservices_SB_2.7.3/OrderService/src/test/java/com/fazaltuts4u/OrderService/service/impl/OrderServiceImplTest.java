@@ -1,6 +1,7 @@
 package com.fazaltuts4u.OrderService.service.impl;
 
 import com.fazaltuts4u.OrderService.entity.Order;
+import com.fazaltuts4u.OrderService.exception.CustomException;
 import com.fazaltuts4u.OrderService.external.client.PaymentService;
 import com.fazaltuts4u.OrderService.external.client.ProductService;
 import com.fazaltuts4u.OrderService.external.response.PaymentResponse;
@@ -46,7 +47,7 @@ public class OrderServiceImplTest {
 
     @DisplayName("Get Order - Success Scenario")
     @Test
-    void test_When_Order_Success(){
+    void test_When_Order_Success() {
         //Mocking
         Order order = getMockOrder();
         when(orderRepository.findById(anyLong()))
@@ -61,8 +62,10 @@ public class OrderServiceImplTest {
                 "http://PAYMENT-SERVICE/payment/order/" + order.getId(),
                 PaymentResponse.class)
         ).thenReturn(getMockPaymentResponse());
+
         //Actual
         OrderResponse orderResponse = orderService.getOrderDetails(9);
+
         //Verification
         verify(orderRepository, times(1)).findById(anyLong());
         verify(restTemplate, times(1)).getForObject(
@@ -76,6 +79,25 @@ public class OrderServiceImplTest {
         //Assert
         assertNotNull(orderResponse);
         assertEquals(order.getId(), orderResponse.getOrderId());
+    }
+
+    @DisplayName("Get Order - Failure Scenario")
+    @Test
+    void test_When_Get_Order_Not_Found_then_NOT_FOUND() {
+        //Mocking
+        when(orderRepository.findById(anyLong()))
+                .thenReturn(Optional.ofNullable(null));
+        //Actual
+        CustomException exception =
+                assertThrows(CustomException.class,
+                        () -> orderService.getOrderDetails(9));
+
+        //Assert
+        assertEquals("NOT_FOUND", exception.getErrorCode());
+        assertEquals(404, exception.getStatus());
+
+        //Verification
+        verify(orderRepository, times(1)).findById(anyLong());
     }
 
     private PaymentResponse getMockPaymentResponse() {
