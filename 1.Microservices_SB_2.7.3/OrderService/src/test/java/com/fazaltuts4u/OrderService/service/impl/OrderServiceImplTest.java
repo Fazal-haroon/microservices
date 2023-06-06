@@ -129,6 +129,30 @@ public class OrderServiceImplTest {
         assertEquals(order.getId(), orderId);
     }
 
+    @DisplayName("Place Order - Payment Failed Scenario")
+    @Test
+    void test_when_Place_Order_Payment_Fails_then_Order_Placed() {
+        Order order = getMockOrder();
+        OrderRequest orderRequest = getMockOrderRequest();
+
+        when(orderRepository.save(any(Order.class)))
+                .thenReturn(order);
+        when(productService.reduceQuantity(anyLong(),anyLong()))
+                .thenReturn(new ResponseEntity<Void>(HttpStatus.OK));
+        when(paymentService.doPayment(any(PaymentRequest.class)))
+                .thenThrow(new RuntimeException());
+
+        long orderId = orderService.placeOrder(orderRequest);
+
+        verify(orderRepository, times(2))
+                .save(any());
+        verify(productService, times(1))
+                .reduceQuantity(anyLong(),anyLong());
+        verify(paymentService, times(1))
+                .doPayment(any(PaymentRequest.class));
+
+        assertEquals(order.getId(), orderId);
+    }
 
     private OrderRequest getMockOrderRequest() {
         return OrderRequest.builder()
