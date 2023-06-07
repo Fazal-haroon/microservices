@@ -1,10 +1,13 @@
 package com.fazaltuts4u.OrderService.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fazaltuts4u.OrderService.OrderServiceConfig;
+import com.fazaltuts4u.OrderService.model.OrderRequest;
+import com.fazaltuts4u.OrderService.model.PaymentMode;
 import com.fazaltuts4u.OrderService.repository.OrderRepository;
 import com.fazaltuts4u.OrderService.service.OrderService;
 import com.github.tomakehurst.wiremock.client.WireMock;
@@ -19,8 +22,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.util.StreamUtils;
 
 import java.io.IOException;
@@ -28,6 +36,7 @@ import java.nio.charset.Charset;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static java.nio.charset.Charset.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.util.StreamUtils.*;
 
 @SpringBootTest({"server.port=0"})
@@ -111,10 +120,27 @@ public class OrderControllerTest {
                 );
     }
 
+    private OrderRequest getMockOrderRequest() {
+        return OrderRequest.builder()
+                .productId(1)
+                .paymentMode(PaymentMode.CASH)
+                .quantity(10)
+                .totalAmount(200)
+                .build();
+    }
+
     @Test
-    public void test_WhenPlaceOrder_DoPayment_Success() {
+    public void test_WhenPlaceOrder_DoPayment_Success() throws JsonProcessingException {
         //First Place Order
         //Get Order by OrderId from DB and check
         //Check Output
+        OrderRequest orderRequest = getMockOrderRequest();
+        MvcResult mvcResult
+                = mockMvc.perform(MockMvcRequestBuilders.post("/order/placeOrder")
+                        .with(jwt().authorities(new SimpleGrantedAuthority("Customer")))
+                        .content(MediaType.APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(orderRequest))
+                ).andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
     }
 }
