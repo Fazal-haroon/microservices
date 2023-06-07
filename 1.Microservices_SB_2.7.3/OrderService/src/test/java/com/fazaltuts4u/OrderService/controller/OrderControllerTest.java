@@ -130,7 +130,7 @@ public class OrderControllerTest {
     }
 
     @Test
-    public void test_WhenPlaceOrder_DoPayment_Success() throws JsonProcessingException {
+    public void test_WhenPlaceOrder_DoPayment_Success() throws Exception {
         //First Place Order
         //Get Order by OrderId from DB and check
         //Check Output
