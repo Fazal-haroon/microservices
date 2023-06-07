@@ -159,4 +159,19 @@ public class OrderControllerTest {
         assertEquals(orderRequest.getTotalAmount(), o.getAmount());
         assertEquals(orderRequest.getQuantity(), o.getQuantity());
     }
+
+    @Test
+    public void test_WhenPlaceOrderWithWrongAccess_thenThrow403() throws Exception {
+
+        OrderRequest orderRequest = getMockOrderRequest();
+        MvcResult mvcResult
+                = mockMvc.perform(MockMvcRequestBuilders.post("/order/placeOrder")
+                        .with(jwt().authorities(new SimpleGrantedAuthority("Admin")))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(orderRequest))
+                ).andExpect(MockMvcResultMatchers.status().isForbidden())
+                .andReturn();
+
+
+    }
 }
