@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fazaltuts4u.OrderService.OrderServiceConfig;
+import com.fazaltuts4u.OrderService.entity.Order;
 import com.fazaltuts4u.OrderService.model.OrderRequest;
 import com.fazaltuts4u.OrderService.model.PaymentMode;
 import com.fazaltuts4u.OrderService.repository.OrderRepository;
@@ -13,6 +14,7 @@ import com.fazaltuts4u.OrderService.service.OrderService;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -33,9 +35,11 @@ import org.springframework.util.StreamUtils;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Optional;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static java.nio.charset.Charset.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.util.StreamUtils.*;
 
@@ -138,9 +142,21 @@ public class OrderControllerTest {
         MvcResult mvcResult
                 = mockMvc.perform(MockMvcRequestBuilders.post("/order/placeOrder")
                         .with(jwt().authorities(new SimpleGrantedAuthority("Customer")))
-                        .content(MediaType.APPLICATION_JSON_VALUE)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(objectMapper.writeValueAsString(orderRequest))
                 ).andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
+
+        String orderId = mvcResult.getResponse().getContentAsString();
+
+        Optional<Order> orderOptional = orderRepository.findById(Long.valueOf(orderId));
+
+        assertTrue(orderOptional.isPresent());
+
+        Order o = orderOptional.get();
+        assertEquals(Long.parseLong(orderId), o.getId());
+        assertEquals("PLACED", o.getOrderStatus());
+        assertEquals(orderRequest.getTotalAmount(), o.getAmount());
+        assertEquals(orderRequest.getQuantity(), o.getQuantity());
     }
 }
