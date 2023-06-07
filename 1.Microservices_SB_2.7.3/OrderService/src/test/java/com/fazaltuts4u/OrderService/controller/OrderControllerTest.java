@@ -195,6 +195,7 @@ public class OrderControllerTest {
                         defaultCharset()
                 ), OrderResponse.PaymentDetails.class
         );
+        paymentDetails.setStatus("SUCCESS");
 
         OrderResponse.ProductDetails productDetails
                 = objectMapper.readValue(
