@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fazaltuts4u.OrderService.OrderServiceConfig;
 import com.fazaltuts4u.OrderService.entity.Order;
 import com.fazaltuts4u.OrderService.model.OrderRequest;
+import com.fazaltuts4u.OrderService.model.OrderResponse;
 import com.fazaltuts4u.OrderService.model.PaymentMode;
 import com.fazaltuts4u.OrderService.repository.OrderRepository;
 import com.fazaltuts4u.OrderService.service.OrderService;
@@ -171,7 +172,31 @@ public class OrderControllerTest {
                         .content(objectMapper.writeValueAsString(orderRequest))
                 ).andExpect(MockMvcResultMatchers.status().isForbidden())
                 .andReturn();
+    }
 
+    @Test
+    public void test_WhenGetOrder_Success() throws Exception {
+        MvcResult mvcResult
+                = mockMvc.perform(MockMvcRequestBuilders.get("/order/1")
+                .with(jwt().authorities(new SimpleGrantedAuthority("Admin")))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
 
+        String actualResponse = mvcResult.getResponse().getContentAsString();
+        Order order = orderRepository.findById(1l).get();
+        String expectedResponse = getOrderResponse(order);
+    }
+
+    private String getOrderResponse(Order order) throws IOException {
+        OrderResponse.PaymentDetails paymentDetails
+                = objectMapper.readValue(
+                copyToString(
+                        OrderControllerTest.class.getClassLoader()
+                                .getResourceAsStream("mock/GetPayment.json"
+                                ),
+                        defaultCharset()
+                ), OrderResponse.PaymentDetails.class
+        );
     }
 }
