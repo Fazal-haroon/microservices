@@ -7,4 +7,10 @@ docker ps
 //stop the container - docker stop container-id / docker stop container-name
 docker stop 732f78e69a8c
 docker stop zipkin-test
-//
+//start the container - docker start container-id / docker start container-name
+docker start 732f78e69a8c
+docker start zipkin-test
+//list of container, still not running currently
+docker ps -a
+//remove container
+docker rm 732f78e69a8c
