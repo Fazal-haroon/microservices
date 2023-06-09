@@ -7,10 +7,12 @@ docker ps
 //stop the container - docker stop container-id / docker stop container-name
 docker stop 732f78e69a8c
 docker stop zipkin-test
+//remove container
+docker rm 732f78e69a8c
 //start the container - docker start container-id / docker start container-name
 docker start 732f78e69a8c
 docker start zipkin-test
 //list of container, still not running currently
 docker ps -a
-//remove container
-docker rm 732f78e69a8c
+//docker run --name container-name -p host-port:container-port -d image-name:tag-name
+docker run --name openzipkin-test -p 1234:9411 -d openzipkin/zipkin:latest
