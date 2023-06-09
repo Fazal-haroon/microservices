@@ -32,3 +32,12 @@ docker run --name openzipkin-test -p 1234:9411 -d openzipkin/zipkin:latest
 
 //Display Detailed Information of Image -> docker inspect image-id
 docker inspect 958c91068912
+
+//Display Container Detailed Information  -> docker inspect container-id
+docker inspect 958c91068912
+
+//Check the Logs
+docker logs 3df20857fcd1
+
+//Docker Container exec, Run a Command in a Running Container and Access the shell of the perticular container
+// command -> docker e
