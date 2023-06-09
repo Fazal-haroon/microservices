@@ -40,4 +40,5 @@ docker inspect 958c91068912
 docker logs 3df20857fcd1
 
 //Docker Container exec, Run a Command in a Running Container and Access the shell of the perticular container
-// command -> docker e
+// command -> docker exec -it container-id /bin/sh
+docker exec -it 3df20857fcd1 /bin/sh
