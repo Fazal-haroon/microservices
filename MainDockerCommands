@@ -1,4 +1,10 @@
-//change images
+//list of images
 docker images
 //start container - docker run --name container-name images-name:TAG 
 docker run --name redis-test redis/redis-stack-server:latest
+//list of runing container
+docker ps
+//stop the container - docker stop container-id / docker stop container-name
+docker stop 732f78e69a8c
+docker stop zipkin-test
+//
