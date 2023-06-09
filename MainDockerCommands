@@ -1,0 +1,4 @@
+//change images
+docker images
+//start container - docker run --name container-name images-name:TAG 
+docker run --name redis-test redis/redis-stack-server:latest
