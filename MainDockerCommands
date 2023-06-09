@@ -1,31 +1,34 @@
-//list of images
+//List of Images
 docker images
 
-//pull image -> docker pull image-name:tag-name
+//Pull Image -> docker pull image-name:tag-name
 docker pull redis:6.2.7
 
-//pull latest image -> docker pull image-name
+//Pull Latest Image -> docker pull image-name
 docker pull redis
 
-//start container -> docker run --name container-name images-name:TAG 
+//Start Container -> docker run --name container-name images-name:TAG 
 docker run --name redis-test redis/redis-stack-server:latest
 
-//list of runing container
+//List of Running Container
 docker ps
 
-//stop the container -> docker stop container-id / docker stop container-name
+//Stop the Container -> docker stop container-id / docker stop container-name
 docker stop 732f78e69a8c
 docker stop zipkin-test
 
-//remove container
+//Remove Container
 docker rm 732f78e69a8c
 
-//start the container -> docker start container-id / docker start container-name
+//Start the Container -> docker start container-id / docker start container-name
 docker start 732f78e69a8c
 docker start zipkin-test
 
-//list of container, still not running currently
+//List of Container, Still not Running Currently
 docker ps -a
 
-//docker run --name container-name -p host-port:container-port -d image-name:tag-name
+//Docker Run --name container-name -p host-port:container-port -d image-name:tag-name
 docker run --name openzipkin-test -p 1234:9411 -d openzipkin/zipkin:latest
+
+//Display Detailed Information of Image -> docker inspect image-id
+docker inspect 958c91068912
