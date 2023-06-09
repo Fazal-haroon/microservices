@@ -20,6 +20,9 @@ docker stop zipkin-test
 //Remove Container
 docker rm 732f78e69a8c
 
+//Remove Image
+docker rmi bcf026b4230f bcf026b4230f
+
 //Start the Container -> docker start container-id / docker start container-name
 docker start 732f78e69a8c
 docker start zipkin-test
@@ -42,3 +45,7 @@ docker logs 3df20857fcd1
 //Docker Container exec, Run a Command in a Running Container and Access the shell of the perticular container
 // command -> docker exec -it container-id /bin/sh
 docker exec -it 3df20857fcd1 /bin/sh
+
+//Deleting all docker Resources
+docker system prune -a
+
