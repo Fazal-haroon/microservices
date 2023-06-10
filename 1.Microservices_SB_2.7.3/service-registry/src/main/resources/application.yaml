@@ -7,3 +7,8 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
+
+#docker build -t fazalharoon/serviceregistry:0.0.1 .
+
+#docker run -d -p 8761:8761 --name serviceregi
+#stry 7dde48ab89b1
