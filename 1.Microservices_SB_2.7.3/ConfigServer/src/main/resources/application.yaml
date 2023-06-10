@@ -12,3 +12,10 @@ spring:
 
 #          Installing Zipkin via Docker -> docker run -d -p 9411:9411 openzipkin/zipkin
 
+#mvn clean install
+
+#docker build -t fazalharoon/configserver:0.0.1 -t fazalharoon/configserver:latest .
+
+#docker build -t fazalharoon/configserver:0.0.1
+
+#

@@ -8,7 +8,8 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
 
+#mvn clean install
+
 #docker build -t fazalharoon/serviceregistry:0.0.1 .
 
-#docker run -d -p 8761:8761 --name serviceregi
-#stry 7dde48ab89b1
+#docker run -d -p 8761:8761 --name serviceregistry 7dde48ab89b1
