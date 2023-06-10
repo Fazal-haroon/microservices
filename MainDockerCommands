@@ -10,6 +10,10 @@ docker pull redis
 //Start Container -> docker run --name container-name images-name:TAG 
 docker run --name redis-test redis/redis-stack-server:latest
 
+//Docker Run --name container-name -p host-port:container-port -d image-name:tag-name
+docker run --name openzipkin-test -p 1234:9411 -d openzipkin/zipkin:latest
+docker run -d -p 8761:8761 --name serviceregistry 204908dc46a8
+
 //List of Running Container
 docker ps
 
@@ -29,9 +33,6 @@ docker start zipkin-test
 
 //List of Container, Still not Running Currently
 docker ps -a
-
-//Docker Run --name container-name -p host-port:container-port -d image-name:tag-name
-docker run --name openzipkin-test -p 1234:9411 -d openzipkin/zipkin:latest
 
 //Display Detailed Information of Image -> docker inspect image-id
 docker inspect 958c91068912
