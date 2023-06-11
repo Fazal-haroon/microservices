@@ -16,6 +16,17 @@ spring:
 
 #docker build -t fazalharoon/configserver:0.0.1 -t fazalharoon/configserver:latest .
 
-#docker build -t fazalharoon/configserver:0.0.1
+#docker build -t fazalharoon/configserver:0.0.1 .
 
 #docker run -d -p 9296:9296 --name configserver 054122c7cf3f
+
+#We are passing env variable
+#docker run -d -p 9296:9296 -e EUREKA_SERVER_ADDRESS=http://host.docker.internal:8761/eureka --name configserver 054122c7cf3f
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
