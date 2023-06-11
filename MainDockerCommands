@@ -50,3 +50,7 @@ docker exec -it 3df20857fcd1 /bin/sh
 //Deleting all docker Resources
 docker system prune -a
 
+//push images into dockerHub -> docker push docker-image-name
+docker push fazalharoon/cloudgateway
+
+
