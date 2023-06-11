@@ -5,7 +5,7 @@ spring:
   application:
     name: API-GATEWAY
   config:
-    import: configserver:http://localhost:9296
+    import: configserver:http://${CONFIG_SERVER_URL:localhost}:9296
   cloud:
     gateway:
       routes:
@@ -56,3 +56,9 @@ okta:
     client-id: 0oa9szictr3M4KfB95d7
     client-secret: oxHJeGVLBEztKSOovW2ZQDv7YhblWu2FWmILXKIe
     scopes: openid, profile, email, offline_access
+
+#mvn clean install
+
+#docker build -t fazalharoon/cloudgateway:latest .
+
+#docker run -d -p 9090:9090 -e CONFIG_SERVER_URL=host.docker.internal -e EUREKA_SERVER_ADDRESS=http://host.docker.internal:8761/eureka --name cloudgateway 0b43e7ab33fb
