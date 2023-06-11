@@ -11,18 +11,22 @@ services:
     ports:
       - '9296:9296'
     environment:
-      - EUREKA_SERVER_ADDRESS:http://serviceregistry:8761/eureka
+      - EUREKA_SERVER_ADDRESS=http://serviceregistry:8761/eureka
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://configserver:9296/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     depends_on:
       - serviceregistry
   cloudgateway:
     image: 'fazalharoon/cloudgateway:latest'
     container_name: cloudgateway
-    ports: 
+    ports:
       - '9090:9090'
     environment:
       - EUREKA_SERVER_ADDRESS=http://serviceregistry:8761/eureka
       - CONFIG_SERVER_URL=configserver
     depends_on:
-      - configserver
-
-                
+      configserver:
+        condition: service_healthy
