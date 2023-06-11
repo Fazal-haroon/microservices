@@ -1,0 +1,22 @@
+version: '3'
+services:
+ serviceregistry:
+  image: 'fazalharoon/serviceregistry:0.0.1'
+  container_name: serviceregistry
+  ports:
+   - '8761:8761'
+ configserver:
+  image: 'fazalharoon/configserver:0.0.1'
+  container_name: configserver
+  ports:
+   - '9296:9296'
+  depends_on:
+   - serviceregistry
+ cloudgateway:
+  image: 'fazalharoon/cloudgateway:latest'
+  container_name: cloudgateway
+  ports: 
+   - '9090:9090'
+  depends_on:
+   - configserver
+                
