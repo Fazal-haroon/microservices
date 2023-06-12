@@ -30,3 +30,8 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
+        
+#docker-compose -f docker-compose.yml up -d
+#docker-compose -f docker-compose.yml up
+
+#docker-compose -f docker-compose.yml down
