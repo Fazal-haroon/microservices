@@ -9,7 +9,20 @@ minikube stop
 //get status, everything run completely fine
 minikube status
 
-//get all the components kubernetes service
+//get all the components Kubernetes service, pods, replica etc
 kubectl get all
 
-//  
+//get pods
+kubectl get pods
+
+//get deployment
+kubectl get deployment
+
+//get different services
+kubectl get services
+
+//get namespaces
+kubectl get namespaces
+
+//delete all services in cluster, don't try in production env
+kubectl delete all --all
