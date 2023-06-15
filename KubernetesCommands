@@ -25,6 +25,10 @@ kubectl describe deployment nginx
 //get pods
 kubectl get pods
 
+//get all the information about the pod
+// kubectl describe pod pod-name
+kubectl describe pod nginx-748c667d99-v7v7z
+
 //get deployment
 kubectl get deployment
 
