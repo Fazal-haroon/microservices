@@ -9,8 +9,18 @@ minikube stop
 //get status, everything run completely fine
 minikube status
 
+//create deployment kubernetes, it will create pod, replica and deployment as well
+// kubectl create deployment deployment-name --image=image-name
+kubectl create deployment nginx --image=nginx
+
 //get all the components Kubernetes service, pods, replica etc
 kubectl get all
+
+//get all the components kubernetes with more information 
+kubectl get all -o wide
+
+//get all the information about the deployment
+kubectl describe deployment nginx
 
 //get pods
 kubectl get pods
