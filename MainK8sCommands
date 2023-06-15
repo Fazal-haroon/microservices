@@ -1,0 +1,14 @@
+Kubernetes Main Commands
+//start the kubernetes cluster
+minikube start
+
+//stop the kubernetes cluster
+minikube stop
+
+//get status, everything run completely fine
+minikube status
+
+//get all the components kubernetes service
+kubectl get all
+
+//  
