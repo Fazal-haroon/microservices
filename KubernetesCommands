@@ -29,6 +29,9 @@ kubectl get pods
 // kubectl describe pod pod-name
 kubectl describe pod nginx-748c667d99-v7v7z
 
+//check the logs
+kubectl logs nginx-748c667d99-v7v7z
+
 //get deployment
 kubectl get deployment
 
@@ -40,3 +43,7 @@ kubectl get namespaces
 
 //delete all services in cluster, don't try in production env
 kubectl delete all --all
+
+//inside the pod information
+kubectl exec -it nginx-748c667d99-v7v7z -- /bin/bash
+
