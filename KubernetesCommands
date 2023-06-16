@@ -44,6 +44,9 @@ kubectl get namespaces
 //delete all services in cluster, don't try in production env
 kubectl delete all --all
 
-//inside the pod information
+//kubernetes pods exec, Run a Command in a Running pods and Access the shell of the particular pod, inside the pod information
+// command -> kubectl exec -it pod-name-id /bin/bash
 kubectl exec -it nginx-748c667d99-v7v7z -- /bin/bash
 
+//edit the deployment
+kubectl edit deployment
