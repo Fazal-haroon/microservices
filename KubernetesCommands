@@ -1,0 +1,56 @@
+Kubernetes Main Commands
+
+//start the kubernetes cluster
+minikube start
+
+//stop the kubernetes cluster
+minikube stop
+
+//get status, everything run completely fine
+minikube status
+
+//create deployment kubernetes, it will create pod, replica and deployment as well
+// kubectl create deployment deployment-name --image=image-name
+kubectl create deployment nginx --image=nginx
+
+//get all the components Kubernetes service, pods, replica etc
+kubectl get all
+
+//get all the components kubernetes with more information 
+kubectl get all -o wide
+
+//get all the information about the deployment
+kubectl describe deployment nginx
+
+//get pods
+kubectl get pods
+
+//get all the information about the pod
+// kubectl describe pod pod-name
+kubectl describe pod nginx-748c667d99-v7v7z
+
+//check the logs
+kubectl logs nginx-748c667d99-v7v7z
+
+//get deployment
+kubectl get deployment
+
+//get different services
+kubectl get services
+
+//get namespaces
+kubectl get namespaces
+
+//delete all services in cluster, don't try in production env
+kubectl delete all --all
+
+//delete deployment
+// command -> kubectl delete deployment deployment-name
+kubectl delete deployment nginx
+
+//kubernetes pods exec, Run a Command in a Running pods and Access the shell of the particular pod, inside the pod information
+// command -> kubectl exec -it pod-name-id /bin/bash
+kubectl exec -it nginx-748c667d99-v7v7z -- /bin/bash
+
+//edit the deployment
+kubectl edit deployment
