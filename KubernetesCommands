@@ -62,3 +62,18 @@ kubectl apply -f svc.yaml
 //delete all the resources in deployment file
 kubectl delete -f deploy.yaml
 kubectl delete -f svc.yaml
+
+//get namespaces 
+kubectl get namespaces
+
+//create namespaces
+kubectl create namespace my-namespace
+
+//k8x apply on yaml file with own namespace not default this time
+kubectl apply -f .\deploy.yaml -n my-namespace
+
+//get all resources of default namespace
+kubectl get all
+
+//get all resources of specific namespace
+kubectl get all -n my-namespace
