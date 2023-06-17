@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: service-registry
+  labels: 
+    app: service-registry
 spec:
   selector:
     matchLabels:
