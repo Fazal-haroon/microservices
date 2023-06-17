@@ -83,4 +83,3 @@ minikube addons list
 
 //enable ingress component
 minikube addons enable ingress
-minikube addons enable ingress
