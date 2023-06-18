@@ -15,3 +15,11 @@ spring:
     name: PAYMENT-SERVICE
   config:
     import: configserver:${CONFIG_SERVER_URL:http://localhost:9296}
+
+#mvn clean install
+
+#docker build -t fazalharoon/paymentservice:latest .
+
+#docker run -d -p 8081:8081 -e CONFIG_SERVER_URL=host.docker.internal -e EUREKA_SERVER_ADDRESS=http://host.docker.internal:8761/eureka --name paymentservice 0b43e7ab33fb
+
+
