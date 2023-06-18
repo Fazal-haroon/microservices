@@ -24,3 +24,12 @@ spring:
 #    fetch-registry: true
 #    service-url:
 #      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
+
+
+#mvn clean install
+
+#docker build -t fazalharoon/productservice:latest .
+
+#docker run -d -p 8080:8080 -e CONFIG_SERVER_URL=host.docker.internal -e EUREKA_SERVER_ADDRESS=http://host.docker.internal:8761/eureka --name productservice 0b43e7ab33fb
+
+
