@@ -77,3 +77,9 @@ kubectl get all
 
 //get all resources of specific namespace
 kubectl get all -n my-namespace
+
+//addons available list on local system
+minikube addons list
+
+//enable ingress component
+minikube addons enable ingress
