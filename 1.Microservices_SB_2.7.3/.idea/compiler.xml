@@ -10,11 +10,14 @@
         <module name="ConfigServer" />
         <module name="OrderService" />
         <module name="ProductService" />
-        <module name="service-registry" />
         <module name="PaymentService" />
+        <module name="serviceregistry" />
         <module name="CloudGateway" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="service-registry" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -24,6 +27,7 @@
       <module name="PaymentService" options="-parameters" />
       <module name="ProductService" options="-parameters" />
       <module name="service-registry" options="-parameters" />
+      <module name="serviceregistry" options="-parameters" />
     </option>
   </component>
 </project>
