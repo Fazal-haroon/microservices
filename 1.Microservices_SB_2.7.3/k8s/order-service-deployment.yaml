@@ -27,6 +27,11 @@ spec:
               configMapKeyRef:
                 key: config_url
                 name: config-cm
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: hostname
+                name: mysql-cm
 
 ---
 
