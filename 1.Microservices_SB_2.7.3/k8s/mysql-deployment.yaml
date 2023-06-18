@@ -65,7 +65,7 @@ spec:
             value: root
         volumeMounts:
         - name: mysql-persistent-storage
-          mountPath: /usr/share/nginx/html
+          mountPath: /var/lib/mysql
     volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
