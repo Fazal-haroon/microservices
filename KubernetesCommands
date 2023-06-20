@@ -83,3 +83,11 @@ minikube addons list
 
 //enable ingress component
 minikube addons enable ingress
+
+//start kubernetes dashboard
+minikube dashboard
+
+//get url of dashboard
+minikube dashboard --url
+
+
