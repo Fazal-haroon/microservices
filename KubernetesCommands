@@ -48,52 +48,52 @@ kubectl delete all --all
 // command -> kubectl delete deployment deployment-name
 kubectl delete deployment nginx
 
-//kubernetes pods exec, Run a Command in a Running pods and Access the shell of the particular pod, inside the pod information
+//Kubernetes Pods exec, Run a Command in Running Pods and Access the shell of the particular pod, inside the Pod Information
 // command -> kubectl exec -it pod-name-id /bin/bash
 kubectl exec -it nginx-748c667d99-v7v7z -- /bin/bash
 
-//edit the deployment
+//Edit the Deployment
 kubectl edit deployment
 
-//k8s apply on yaml file
+//K8S apply on yaml file
 kubectl apply -f deploy.yaml
 kubectl apply -f svc.yaml
 
-//deploy everything inside the folder
+//Deploy everything inside the folder
 kubectl apply -f folder_name
 
-//delete everything inside the folder
+//Delete everything inside the folder
 kubectl delete -f folder_name
 
-//delete all the resources in deployment file
+//Delete all the Resources in the Deployment file
 kubectl delete -f deploy.yaml
 kubectl delete -f svc.yaml
 
-//get namespaces 
+//Get Namespaces 
 kubectl get namespaces
 
-//create namespaces
+//Create Namespaces
 kubectl create namespace my-namespace
 
-//k8x apply on yaml file with own namespace not default this time
+//K8S apply on yaml file with own Namespace not default this time
 kubectl apply -f .\deploy.yaml -n my-namespace
 
-//get all resources of default namespace
+//Get all Resources of Default Namespace
 kubectl get all
 
-//get all resources of specific namespace
+//Get all Resources of Specific Namespace
 kubectl get all -n my-namespace
 
-//addons available list on local system
+//addons Available List on Local System
 minikube addons list
 
-//enable ingress component
+//Enable ingress Component
 minikube addons enable ingress
 
-//start kubernetes dashboard
+//Start Kubernetes Dashboard
 minikube dashboard
 
-//get url of dashboard
+//Get URL of Dashboard
 minikube dashboard --url
 
 
