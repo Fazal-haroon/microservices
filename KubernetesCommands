@@ -1,50 +1,50 @@
 Kubernetes Main Commands
 
-//start the kubernetes cluster
+//Start the Kubernetes Cluster
 minikube start
 
-//stop the kubernetes cluster
+//Stop the Kubernetes Cluster
 minikube stop
 
-//get status, everything run completely fine
+//Get Status, Everything Run Completely Fine
 minikube status
 
-//create deployment kubernetes, it will create pod, replica and deployment as well
+//Create Deployment Kubernetes, it will Create Pod, Replica and Deployment as well
 // kubectl create deployment deployment-name --image=image-name
 kubectl create deployment nginx --image=nginx
 
-//get all the components Kubernetes service, pods, replica etc
+//Get all the Components Kubernetes Service, Pods, Replica etc
 kubectl get all
 
-//get all the components kubernetes with more information 
+//Get all the Components Kubernetes with more Information 
 kubectl get all -o wide
 
-//get all the information about the deployment
+//Get all the Information about the Deployment
 kubectl describe deployment nginx
 
-//get pods
+//Get Pods
 kubectl get pods
 
-//get all the information about the pod
+//Get all the Information about the Pod
 // kubectl describe pod pod-name
 kubectl describe pod nginx-748c667d99-v7v7z
 
-//check the logs
+//Check the Logs
 kubectl logs nginx-748c667d99-v7v7z
 
-//get deployment
+//Get Deployment
 kubectl get deployment
 
-//get different services
+//Get Different Services
 kubectl get services
 
-//get namespaces
+//Get Namespaces
 kubectl get namespaces
 
-//delete all services in cluster, don't try in production env
+//Delete all Services in Cluster, don't try in Production env
 kubectl delete all --all
 
-//delete deployment
+//Delete Deployment
 // command -> kubectl delete deployment deployment-name
 kubectl delete deployment nginx
 
