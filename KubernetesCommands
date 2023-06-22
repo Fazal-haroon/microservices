@@ -38,6 +38,9 @@ kubectl get deployment
 //Get Different Services
 kubectl get services
 
+//it will create a tannel, with that tonnel we will be able to access this service within the kubernetes cluster
+minikube service service_name
+
 //Get Namespaces
 kubectl get namespaces
 
