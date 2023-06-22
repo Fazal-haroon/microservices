@@ -59,10 +59,10 @@ kubectl edit deployment
 kubectl apply -f deploy.yaml
 kubectl apply -f svc.yaml
 
-//Deploy everything inside the folder
+//Deploy everything inside the Kubernetes Folder 
 kubectl apply -f folder_name
 
-//Delete everything inside the folder
+//Delete everything inside the Kubernetes Folder 
 kubectl delete -f folder_name
 
 //Delete all the Resources in the Deployment file
@@ -90,10 +90,10 @@ minikube addons list
 //Enable ingress Component
 minikube addons enable ingress
 
-//Start Kubernetes Dashboard
+//Start Kubernetes Dashboard 
 minikube dashboard
 
-//Get URL of Dashboard
+//Get URL of Dashboard 
 minikube dashboard --url
 
 
