@@ -18,6 +18,8 @@ spring:
 
 #docker build -t fazalharoon/configserver:0.0.1 .
 
+#docker build -t fazalharoon/configserver:latest .
+
 #docker run -d -p 9296:9296 --name configserver 054122c7cf3f
 
 #We are passing env variable
