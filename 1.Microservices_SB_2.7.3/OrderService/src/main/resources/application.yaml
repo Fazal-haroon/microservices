@@ -60,3 +60,6 @@ resilience4j:
 
 #docker run -d -p 8082:8082 -e CONFIG_SERVER_URL=host.docker.internal -e EUREKA_SERVER_ADDRESS=http://host.docker.internal:8761/eureka --name orderservice 0b43e7ab33fb
 
+microservices:
+  product: http://product-service-svc/product/
+  payment: http://payment-service-svc/payment/
