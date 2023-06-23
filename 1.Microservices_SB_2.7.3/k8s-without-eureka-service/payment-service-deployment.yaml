@@ -17,11 +17,6 @@ spec:
         ports:
         - containerPort: 8081
         env:
-          - name: EUREKA_SERVER_ADDRESS
-            valueFrom:
-              configMapKeyRef:
-                key: eureka_service_address
-                name: eureka-cm
           - name: CONFIG_SERVER_URL
             valueFrom:
               configMapKeyRef:
