@@ -24,7 +24,7 @@ public class WebSocketClient {
             });
 
 
-            socket.on(Socket.EVENT_MESSAGE, new Emitter.Listener() {
+            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
                     String data = (String) args[0];
