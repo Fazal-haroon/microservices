@@ -11,6 +11,7 @@ docker pull redis
 
 //Start Container -> docker run --name container-name images-name:TAG 
 docker run --name redis-test redis/redis-stack-server:latest
+docker run -d -p 6379:6379 --name myredis redis/redis-stack-server:latest
 
 //Docker Run --name container-name -p host-port:container-port -d image-name:tag-name
 docker run --name openzipkin-test -p 1234:9411 -d openzipkin/zipkin:latest
